@@ -39,13 +39,13 @@ pipeline {
             }
 
         
-         stage(“Deploy docker image to the deployment server”){
+         stage('Deploy docker image to the deployment server'){
 
            sshagent(['Docker']) {
 
-            sh “ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker rm -f todospringmongobackend || true”
+            sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker rm -f todospringmongobackend || true'
 
-             sh “ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker run -d -p 8080:8080 — name todospringmongobackend imonbayazid/todo-spring-mongo-backend:${buildNumber}”
+             sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker run -d -p 8080:8080 — name todospringmongobackend imonbayazid/todo-spring-mongo-backend:${buildNumber}'
 
 }
 
