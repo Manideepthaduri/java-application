@@ -18,6 +18,7 @@ pipeline {
         }    
       
    stage('Build Docker Image') { 
+       agent { label 'Docker'}
             steps {
                 sh '''
               docker build . --tag mani:$BUILD_NUMBER
@@ -26,19 +27,15 @@ pipeline {
               '''
          }
          }
-      
-    stage('Run Docker container on Jenkins Agent') {
-     agent { label 'Docker'}  
-           steps {
-   
-                sh 'docker run -d -p 8080:8080 — name mani:${buildNumber}”'
- 
-            }
-        }
 
-
-
-     
+         stage('Docker Run') {
+          agent { label 'Docker'}      
+            steps{
+                   script {
+                sh 'docker run -d -p 8096:5000 --rm --name mani 961565152773.dkr.ecr.us-west-1.amazonaws.com/mani:latest'     
+      }
+    }
+    
                 }
             } 
             
