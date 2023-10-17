@@ -41,8 +41,8 @@ pipeline {
         
  
 
-stage('Deploy docker image to the deployment server'){
-        agent{label 'Docker'} 
+      stage('Deploy docker image to the deployment server'){
+          agent{label 'Docker'} 
                steps{
 
             
