@@ -6,7 +6,7 @@ pipeline {
     stages {
       stage('Clone the repository'){
         steps{
-          git 'https://github.com/Manideepthaduri/web-application.git'
+          git 'https://github.com/Manideepthaduri/java-application.git'
           
         } 
       }
