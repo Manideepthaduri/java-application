@@ -41,11 +41,10 @@ pipeline {
         
  
 
-      stage('Deploy docker image to the deployment server'){
-          agent{label 'Docker'} 
-               steps{
-
-            
+      stage('Run Docker container on remote hosts') {
+         agent { label 'Docker' }        
+            steps {
+                sh 'docker ps -a'
                 sh 'docker run -d -p 8080:8080 — name mani:${buildNumber}'
 
 }
