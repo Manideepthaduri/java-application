@@ -18,7 +18,7 @@ pipeline {
         }    
       
    stage('Build Docker Image') { 
-       agent{‘label Docker’}
+       agent{label 'Docker’}
             steps {
                 sh '''
               docker build . --tag web-application:$BUILD_NUMBER
@@ -30,7 +30,7 @@ pipeline {
         }  
       
 stage('Push Docker Image') {
-          steps{
+    steps{
  withAWS(credentials: 'ECR', region: 'us-west-1') {
        
                     sh '''
@@ -40,7 +40,7 @@ stage('Push Docker Image') {
                 }
             }
     stage('Deploy docker image to the deployment server'){
-        agent{‘label Docker’} 
+        agent{label 'Docker'} 
                steps{
 
                 sh'ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker rm -f todospringmongobackend || true'
