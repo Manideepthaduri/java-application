@@ -18,7 +18,6 @@ pipeline {
         }    
       
    stage('Build Docker Image') { 
-       agent{label 'Docker'}
             steps {
                 sh '''
               docker build . --tag web-application:$BUILD_NUMBER
@@ -29,7 +28,6 @@ pipeline {
          }
       
     stage('Push Docker Image') {
-         agent{label 'Docker'}
               steps{
                   withAWS(credentials: 'ECR', region: 'us-west-1') {
                    sh '''
