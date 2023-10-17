@@ -37,8 +37,20 @@ pipeline {
                     '''
                 }
             }
+        
+        
+ 
 
+stage('Deploy docker image to the deployment server'){
+        agent{label 'Docker'} 
+               steps{
 
+            
+                sh 'docker run -d -p 8080:8080 — name mani:${buildNumber}'
+
+}
+
+}
 
 
 
