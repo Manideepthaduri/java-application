@@ -23,7 +23,10 @@ pipeline {
                 sh '''
               docker build . --tag web-application:$BUILD_NUMBER
               docker tag web-application:$BUILD_NUMBER 961565152773.dkr.ecr.us-west-1.amazonaws.com/mani:$BUILD_NUMBER
-         }  
+
+              '''
+         }
+         }
       
     stage('Push Docker Image') {
          agent{label 'Docker'}
