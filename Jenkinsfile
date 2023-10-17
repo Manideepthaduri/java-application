@@ -30,7 +30,8 @@ pipeline {
         }  
       
 stage('Push Docker Image') {
-    steps{
+  agent{label 'Docker'}
+      steps{
  withAWS(credentials: 'ECR', region: 'us-west-1') {
        
                     sh '''
