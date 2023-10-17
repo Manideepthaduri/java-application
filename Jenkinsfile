@@ -39,7 +39,7 @@ stage('Push Docker Image') {
                     '''
                 }
             }
-    stage(“Deploy docker image to the deployment server”){
+    stage('Deploy docker image to the deployment server'){
         agent{‘label Docker’} 
                steps{
 
