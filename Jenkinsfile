@@ -18,7 +18,7 @@ pipeline {
         }    
       
    stage('Build Docker Image') { 
-       agent{label 'Docker’}
+       agent{label 'Docker'}
             steps {
                 sh '''
               docker build . --tag web-application:$BUILD_NUMBER
