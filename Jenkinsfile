@@ -43,9 +43,9 @@ stage('Push Docker Image') {
         agent{‘label Docker’} 
                steps{
 
-                sh"ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker rm -f todospringmongobackend || true"
+                sh'ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker rm -f todospringmongobackend || true'
 
-                sh “ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker run -d -p 8080:8080 — name mani:${buildNumber}”
+                sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker run -d -p 8080:8080 — name mani:${buildNumber}'
 
 }
 
