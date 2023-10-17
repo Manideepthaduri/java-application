@@ -28,13 +28,16 @@ pipeline {
          }
          }
 
-         stage('Docker Run') {
-          agent { label 'Docker'}      
-            steps{
-                   script {
-                sh 'docker run -d -p 8096:5000 --rm --name mani 961565152773.dkr.ecr.us-west-1.amazonaws.com/mani:latest'     
-      }
-    }
+         stage('Push Docker Image') {
+          steps{
+ withAWS(credentials: 'ECR', region: 'us-west-1') {
+       
+                    sh '''
+                   aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 108290765801.dkr.ecr.us-west-1.amazonaws.com
+                   docker push 108290765801.dkr.ecr.us-west-1.amazonaws.com/web-application:$BUILD_NUMBER
+                    '''
+                }
+            } 
     
                 }
             }
