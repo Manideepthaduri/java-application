@@ -37,19 +37,21 @@ pipeline {
                     '''
                 }
             }
-        
-        
- 
 
-      stage('Run Docker container on remote hosts') {
-         agent { label 'Docker' }        
-            steps {
-                sh 'docker ps -a'
-                sh 'docker run -d -p 8080:8080 — name mani:${buildNumber}'
+        
+         stage(“Deploy docker image to the deployment server”){
+
+           sshagent(['Docker']) {
+
+            sh “ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker rm -f todospringmongobackend || true”
+
+             sh “ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker run -d -p 8080:8080 — name todospringmongobackend imonbayazid/todo-spring-mongo-backend:${buildNumber}”
 
 }
 
 }
+
+
 
 
 
