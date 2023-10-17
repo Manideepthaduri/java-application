@@ -28,9 +28,10 @@ pipeline {
          }
       
     stage('Push Docker Image') {
-              steps{
+              steps {
                   withAWS(credentials: 'ECR', region: 'us-west-1') {
-                   sh '''
+                   
+                      sh '''
                    aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 961565152773.dkr.ecr.us-west-1.amazonaws.com
                    docker push 961565152773.dkr.ecr.us-west-1.amazonaws.com/mani:$BUILD_NUMBER
                     '''
