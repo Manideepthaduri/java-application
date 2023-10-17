@@ -20,8 +20,8 @@ pipeline {
    stage('Build Docker Image') { 
             steps {
                 sh '''
-              docker build . --tag web-application:$BUILD_NUMBER
-              docker tag web-application:$BUILD_NUMBER 961565152773.dkr.ecr.us-west-1.amazonaws.com/mani:$BUILD_NUMBER
+              docker build . --tag mani:$BUILD_NUMBER
+              docker tag mani:$BUILD_NUMBER
 
               '''
          }
@@ -31,7 +31,7 @@ pipeline {
      agent { label 'Docker'}  
            steps {
    
-                sh 'docker run -d -p 8096:5000 --rm --name mani 961565152773.dkr.ecr.us-west-1.amazonaws.com/mani:latest'
+                sh 'docker run -d -p 8080:8080 — name mani:${buildNumber}”'
  
             }
         }
