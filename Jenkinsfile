@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''
               docker build . --tag mani:$BUILD_NUMBER
-              docker tag mani:$BUILD_NUMBER
+              docker tag mani:$BUILD_NUMBER 961565152773.dkr.ecr.us-west-1.amazonaws.com/mani:$BUILD_NUMBER
 
               '''
          }
