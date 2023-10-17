@@ -18,6 +18,7 @@ pipeline {
         }    
       
    stage('Build Docker Image') { 
+       agent{‘label Docker’}
             steps {
                 sh '''
               docker build . --tag web-application:$BUILD_NUMBER
@@ -37,7 +38,18 @@ stage('Push Docker Image') {
                    docker push 961565152773.dkr.ecr.us-west-1.amazonaws.com/mani:$BUILD_NUMBER
                     '''
                 }
-            } 
+            }
+    stage(“Deploy docker image to the deployment server”){
+        agent{‘label Docker’} 
+               steps{
+
+                sh"ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker rm -f todospringmongobackend || true"
+
+                sh “ssh -o StrictHostKeyChecking=no ubuntu@54.193.122.230 docker run -d -p 8080:8080 — name mani:${buildNumber}”
+
+}
+
+}
 
 
 
