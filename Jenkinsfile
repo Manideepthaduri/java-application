@@ -23,18 +23,13 @@ pipeline {
                 sh '''
               docker build . --tag web-application:$BUILD_NUMBER
               docker tag web-application:$BUILD_NUMBER 961565152773.dkr.ecr.us-west-1.amazonaws.com/mani:$BUILD_NUMBER
-                
-                '''
-                
-            }
-        }  
+         }  
       
-stage('Push Docker Image') {
-  agent{label 'Docker'}
-      steps{
- withAWS(credentials: 'ECR', region: 'us-west-1') {
-       
-                    sh '''
+    stage('Push Docker Image') {
+         agent{label 'Docker'}
+              steps{
+                  withAWS(credentials: 'ECR', region: 'us-west-1') {
+                   sh '''
                    aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 961565152773.dkr.ecr.us-west-1.amazonaws.com
                    docker push 961565152773.dkr.ecr.us-west-1.amazonaws.com/mani:$BUILD_NUMBER
                     '''
